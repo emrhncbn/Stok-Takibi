@@ -1,4 +1,24 @@
-export default function Stock() {
+export default function Stock({stock}) {
+  const { stockName, logo, currentPrice, prevClosingPrice } = stock
+
+  const numericalChange = ((parseFloat(currentPrice) - parseFloat(prevClosingPrice))).toFixed(2);
+  const rateChange = ((numericalChange / parseFloat(prevClosingPrice)) * 100).toFixed(2);
+
+
+  let colorClass;
+  let arrow;
+
+  if (numericalChange > 0) {
+    colorClass = 'green';
+    arrow = '⬆';
+  } else if (numericalChange < 0) {
+    colorClass = 'red';
+    arrow = '⬇';
+  } else {
+    colorClass = undefined;
+    arrow = '▬';
+  }
+
   /* Challenge
 
     Aşağıdaki değişkenler şu anda verilerle sabit kodlanmıştır. Sizin göreviniz aşağıdakileri yaparak bunları dinamik olarak oluşturulmuş değerlere dönüştürmektir: 
@@ -32,25 +52,25 @@ export default function Stock() {
         Not: Sayıların stringlere dönüştürülmesiyle ilgili kısmı fazla düşünmeyin. Nasıl yaklaştığınıza bağlı olarak, bu challenge'ı çözerken  muhtemelen otomatik olarak gerçekleşecektir. 
 */
 
-  const stockName = "STOK";
+  // const stockName = "STOK";
 
-  const logo = "./images/question-solid.svg";
+  // const logo = "./images/question-solid.svg";
 
-  const currentPrice = "221.32";
+  // const currentPrice = "221.32";
 
-  const prevClosingPrice = "218.45";
+  // const prevClosingPrice = "218.45";
 
-  const numericalChange = "2.87";
+  // const numericalChange = "2.87";
 
-  const rateChange = "1.31";
+  // const rateChange = "1.31";
 
-  const colorClass = "green";
+  // const colorClass = "green";
 
-  const arrow = "⬆";
+  // const arrow = "⬆";
 
   return (
-    <div className="stock-container">
-      <div className={colorClass}>
+    <div className={`stock-container ${colorClass}`}>
+      <div>
         <p>
           {arrow}
           {numericalChange}
@@ -58,7 +78,7 @@ export default function Stock() {
         <p>{rateChange}%</p>
       </div>
       <div>
-        <img className="logo" src={logo} />
+        <img className="logo" src={logo} alt={`Logo for ${stockName}`} />
       </div>
       <div>
         <p>{stockName}</p>
